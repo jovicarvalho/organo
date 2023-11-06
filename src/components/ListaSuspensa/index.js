@@ -10,7 +10,8 @@ const ListaSuspensa = (props) => {
                 required={props.obrigatorio}
                 value={props.valor}
             >
-                {props.itens.map(item=>
+                <option value="">Selecione um Time...</option>
+                {props.itens.map(item=> 
                 <option key={item}>{item}</option>)}
             </select>
         </div>        

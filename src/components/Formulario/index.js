@@ -5,22 +5,11 @@ import ListaSuspensa from '../ListaSuspensa';
 import './Formulario.css'
 
 const Formulario = (props) =>{
-    const times=[
-        'Programação',
-        'Front-End',
-        "Data Science",
-        "Devops",
-        "UX e Desing",
-        "Mobile",
-        "Inovacão"
-    ]
 
     const [nome, setNome] = useState('')
     const [cargo, setCargo] = useState('')
     const [imagem, setImagem] = useState('')
     const [time, setTime] = useState('')
-
-   
 
     const aoSalvar = (event) =>{
         event.preventDefault()
@@ -30,8 +19,11 @@ const Formulario = (props) =>{
             imagem,
             time
         })
+        setNome('')
+        setCargo('')
+        setImagem('')
+        setTime('')
     }
-
     return(
         <section className='formulario'>
             <form onSubmit={aoSalvar}>
@@ -39,27 +31,27 @@ const Formulario = (props) =>{
                 <CampoTexto 
                     obrigatorio
                     label="Nome" 
-                    placeholder="Digite o nome do DBServante"
+                    placeholder="Digite o nome do DBServante..."
                     valor = {nome}
                     aoAlterado = {valor => setNome(valor)}
                 />
                 <CampoTexto 
                     obrigatorio label="Cargo" 
-                    placeholder="Digite o cargo do DBServante"
+                    placeholder="Digite o cargo do DBServante..."
                     valor = {cargo}
                     aoAlterado = {valor => setCargo(valor)}
                  />
                 <CampoTexto 
                     obrigatorio
                     label="Imagem" 
-                    placeholder="Digite o nomne do DBServante"
+                    placeholder="Enviei o link da imagem..."
                     valor = {imagem}
                     aoAlterado = {valor => setImagem(valor)}
                 />
                 <ListaSuspensa 
                     obrigatorio
                     label = "Time" 
-                    itens = {times}
+                    itens = {props.times}
                     valor = {time}
                     aoAlterado={valor=> setTime(valor)}
                 ></ListaSuspensa>
