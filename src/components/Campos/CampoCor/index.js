@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./CampoCor.css";
 
 const CampoCor = (props) => {
