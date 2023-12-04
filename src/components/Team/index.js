@@ -2,7 +2,7 @@ import Colaborador from "../Colaborador";
 import "./Time.css";
 import hexToRgba from "hex-to-rgba";
 
-const Time = ({ colaboradores, cor, nome, aoDeletar, mudarCorTime, id }) => {
+const Team = ({ colaboradores, cor, nome, aoDeletar, mudarCorTime, id }) => {
   const css = { backgroundColor: hexToRgba(cor, "0.6") };
   return (
     colaboradores.length > 0 && (
@@ -32,4 +32,4 @@ const Time = ({ colaboradores, cor, nome, aoDeletar, mudarCorTime, id }) => {
   );
 };
 
-export default Time;
+export default Team;

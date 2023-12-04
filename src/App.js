@@ -2,9 +2,9 @@ import { useState } from "react";
 import "./App.css";
 import Banner from "./components/Banner";
 import Formulario from "./components/Formulario";
-import Time from "./components/Time";
 import Rodape from "./components/Rodape";
 import { v4 as uuid } from "uuid";
+import Team from "./components/Team";
 
 function App() {
   const [times, setTimes] = useState([
@@ -85,7 +85,7 @@ function App() {
         times={times.map((time) => time.nome)}
       />
       {times.map((time) => (
-        <Time
+        <Team
           id={time.id}
           mudarCorTime={mudarCorTime}
           key={time.nome}
