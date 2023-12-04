@@ -1,70 +1,103 @@
-import { useState } from 'react';
-import './App.css';
-import Banner from './components/Banner';
-import Formulario from './components/Formulario';
-import Time from './components/TIme';
-import Rodape from './components/Rodape';
-
+import { useState } from "react";
+import "./App.css";
+import Banner from "./components/Banner";
+import Formulario from "./components/Formulario";
+import Time from "./components/Time";
+import Rodape from "./components/Rodape";
+import { v4 as uuid } from "uuid";
 
 function App() {
+  const [times, setTimes] = useState([
+    {
+      id: uuid(),
+      nome: "Front-End",
+      cor: "#82CFFA",
+    },
+    {
+      id: uuid(),
+      nome: "Data Science",
+      cor: "#A6D157",
+    },
+    {
+      id: uuid(),
+      nome: "Devops",
+      cor: "#E06B69",
+    },
+    {
+      id: uuid(),
+      nome: "UX e Design",
+      cor: "#D86EBF",
+    },
+    {
+      id: uuid(),
+      nome: "Mobile",
+      cor: "#FEBA05",
+    },
+    {
+      id: uuid(),
+      nome: "Inovação e Gestão",
+      cor: "#FF8A29",
+    },
+  ]);
 
-  const times =[
+  const [colaboradores, setColaboradores] = useState([
     {
-      nome: 'Front-End',
-      corPrimaria: '#82CFFA',
-      corSecundaria: '#E8F8FF',
+      id: uuid(),
+      nome: "João Vitor Nunes Carvalho",
+      cargo: "Developer",
+      imagem: "https://github.com/jovicarvalho.png",
+      time: "Front-End",
     },
-    {
-      nome: 'Data Science',
-      corPrimaria: '#A6D157',
-      corSecundaria: '#F0F8E2',
-    },
-    {
-      nome: 'Devops',
-      corPrimaria: '#E06B69',
-      corSecundaria: '#FDE7E8',
-    },
-    {
-      nome: 'UX e Design',
-      corPrimaria: '#D86EBF',
-      corSecundaria: '#FAE5F5',
-    },
-    {
-      nome: 'Mobile',
-      corPrimaria: '#FEBA05',
-      corSecundaria: '#FFF5D9',
-    },
-    {
-      nome: 'Inovação e Gestão',
-      corPrimaria: '#FF8A29',
-      corSecundaria: '#FFEEDF',
-    }
-   ];
-
-  const [colaboradores, setColaboradores] = useState([]);
-  
+  ]);
 
   const aoNovoColaboradorAdcionado = (colaborador) => {
-        setColaboradores([...colaboradores, colaborador])
-  }
-  
+    setColaboradores([...colaboradores, colaborador]);
+  };
+
+  const deletarColaborador = (id) => {
+    setColaboradores(
+      colaboradores.filter((colaborador) => colaborador.id !== id),
+    );
+  };
+
+  const mudarCorTime = (cor, id) => {
+    setTimes(
+      times.map((time) => {
+        if (time.id === id) {
+          time.cor = cor;
+        }
+        return time;
+      }),
+    );
+  };
+  const cadastrarTime = (novoTime) => {
+    setTimes([{ ...novoTime, id: uuid() }, ...times]);
+  };
+
   return (
     <div className="App">
-      <Banner/>
-      <Formulario 
-        aoNovoColaboradorCadastrado ={colaborador => aoNovoColaboradorAdcionado(colaborador)}
-        times={times.map(time=>time.nome)}
+      <Banner />
+      <Formulario
+        cadastrarTime={cadastrarTime}
+        aoNovoColaboradorCadastrado={(colaborador) =>
+          aoNovoColaboradorAdcionado(colaborador)
+        }
+        times={times.map((time) => time.nome)}
       />
-      {times.map(time =>
-        <Time 
-          key={time.nome} 
+      {times.map((time) => (
+        <Time
+          id={time.id}
+          mudarCorTime={mudarCorTime}
+          key={time.nome}
           nome={time.nome}
-          corPrimaria={time.corPrimaria}
-          corSecundaria={time.corSecundaria}
-          colaboradores={colaboradores.filter(colaborador=> colaborador.time ===  time.nome )}
-          />
-        )}
-      <Rodape></Rodape>   
+          cor={time.cor}
+          colaboradores={colaboradores.filter(
+            (colaborador) => colaborador.time === time.nome,
+          )}
+          aoDeletar={deletarColaborador}
+        />
+      ))}
+      <Rodape></Rodape>
     </div>
   );
 }
